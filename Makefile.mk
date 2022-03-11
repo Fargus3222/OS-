@@ -1,19 +1,19 @@
-SOURSES = $(wildcard *.c Drivers/*.c)
-HEADERS = $(wildcard *.h Drivers/*.h)
-ASM = $(wildcard Core/*.asm)
-#ASMO = $(ASM:.)
-LINK = $(wildcard Core/*.ld)
+SOURSES = $(wildcard *.c Drivers/*.c Core/*.c)
+HEADERS = $(wildcard *.h Drivers/*.h Core/*.h)
+ASM = $(wildcard Core/*.asm *.asm)
+ASMO = $(ASM:.asm=.o)
+LINK = Core/link.ld
 OBJECTS = $(wildcard *.o)
 
+
 #ASM:.asm=.o
+#gcc -m32 -c kernel.c -o kc.o
+#gcc -m32 -c Drivers/System.c -o kc.o
+#
 
 all:
-	g++ -c  $(SOURSES)
+	
 	nasm -f elf32 $(ASM)
-	ld -elf32-i386 -T Core/link.ld -o kernel $(OBJECTS)
+	gcc -m32 -c $(SOURSES)
 	
-
-
-	
-
 	
